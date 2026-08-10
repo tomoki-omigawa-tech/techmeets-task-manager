@@ -1,0 +1,47 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            タスク作成
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white p-6 shadow-sm sm:rounded-lg">
+                <form action="{{ route('tasks.store') }}" method="POST" class="space-y-4">
+                    @csrf
+
+                    <div>
+                        <label class="block font-medium">タイトル</label>
+                        <input type="text" name="title" value="{{ old('title') }}" class="w-full border rounded p-2">
+                        @error('title') <p class="text-red-600 text-sm">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div>
+                        <label class="block font-medium">詳細</label>
+                        <textarea name="description" class="w-full border rounded p-2">{{ old('description') }}</textarea>
+                        @error('description') <p class="text-red-600 text-sm">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div>
+                        <label class="block font-medium">状態</label>
+                        <select name="status" class="w-full border rounded p-2">
+                            <option value="todo">未着手</option>
+                            <option value="in_progress">進行中</option>
+                            <option value="done">完了</option>
+                        </select>
+                        @error('status') <p class="text-red-600 text-sm">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div>
+                        <label class="block font-medium">期限</label>
+                        <input type="date" name="due_date" value="{{ old('due_date') }}" class="w-full border rounded p-2">
+                        @error('due_date') <p class="text-red-600 text-sm">{{ $message }}</p> @enderror
+                    </div>
+
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">作成</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</x-app-layout>
